@@ -1,18 +1,12 @@
 {
   "version": 2,
-  "name": "Hooks testing",
-  "env": {
-    "DB_URI": "@DB_URI",
-    "DB_OPTIONS": "@DB_OPTIONS"
-  },
+  "name": "Name your app",
   "builds": [
     { "src": "www/**/*", "use": "@now/static" },
     { "src": "api/**/*", "use": "@now/node" }
   ],
   "routes": [
     { "src": "/", "dest": "api/index.js" },
-    { "src": "/integration/:$id", "dest": "api/integrations.js" },
-    { "src": "/kaushik", "dest": "api/integrations.js" },
     { "src": "/tokens/name/(.*)/send", "dest": "api/tokens/name.js?name=$1" },
     { 
       "src": "/(.*)/push-events", 

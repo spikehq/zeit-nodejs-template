@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const chalk = require('chalk')
+const mongoose = require('mongoose')
+const Schema   = mongoose.Schema
+const chalk    = require('chalk')
 
 let conn = null;
 async function connectToDatabase() {
@@ -28,10 +28,7 @@ async function connectToDatabase() {
             dbOptions = {
                 useNewUrlParser: true,
                 reconnectInterval: 1000,
-                reconnectTries: Number.MAX_VALUE,
-                user: 'master',
-                pass: secret.db.mongo,
-                authSource: 'admin'
+                reconnectTries: Number.MAX_VALUE
             }
         } else {
             dbOptions = JSON.parse(process.env.DB_OPTIONS)
