@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema   = mongoose.Schema
 const chalk    = require('chalk')
-const config   = require('config')
+const config   = require('../config')()
 
 let conn = null;
 async function connectToDatabase() {
