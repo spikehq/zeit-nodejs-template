@@ -40,12 +40,7 @@ async function connectToDatabase() {
         console.log('loading models now')
 
         // Load the models
-        require('./integration')(conn);
-        require('./escalation')(conn);
-        require('./service')(conn);
-        require('./incident')(conn);
         require('./event')(conn);
-        require('./org')(conn);
         require('./user')(conn);
 
         return conn
