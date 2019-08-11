@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Schema   = mongoose.Schema
 const chalk    = require('chalk')
+const config   = require('config')
 
 let conn = null;
 async function connectToDatabase() {
@@ -14,7 +15,6 @@ async function connectToDatabase() {
     // potentially expensive process of connecting to MongoDB every time.
     if (conn == null) {
         console.log('No connection')
-        
         // Explanation for these DB_OPTIONS settings - 
         // "bufferCommands":false, // Disable mongoose buffering
         // "bufferMaxEntries":0 // and MongoDB driver buffering
@@ -23,17 +23,7 @@ async function connectToDatabase() {
         // disconnected from MongoDB and send them when it reconnects.
         // With serverless, better to fail fast if not connected.
         // conn = await mongoose.connect('mongodb://localhost/spiked', process.env.DB_OPTIONS);
-        let dbOptions;
-        if (process.env.NODE_ENV === 'production') {
-            dbOptions = {
-                useNewUrlParser: true,
-                reconnectInterval: 1000,
-                reconnectTries: Number.MAX_VALUE
-            }
-        } else {
-            dbOptions = JSON.parse(process.env.DB_OPTIONS)
-        }
-        conn = await mongoose.createConnection(process.env.DB_URI, dbOptions);
+        conn = await mongoose.createConnection(config.mongodb.uri, config.mongodb.options);
         console.log('loading models now')
 
         // Load the models
@@ -42,7 +32,7 @@ async function connectToDatabase() {
 
         return conn
     } else {
-        console.log('Found connection, exiting')
+        console.log('Found connection, returning')
         return conn
     }
 };

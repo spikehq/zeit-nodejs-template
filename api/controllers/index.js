@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
         // Call the async function here and get the connection. If there is no connection already then it will create one.
         const dbConnection = await db()
         if (dbConnection) {
-            const User = dbConnection.model('User')
+            const User  = dbConnection.model('User')
             const Event = dbConnection.model('Event')
             const users = await User.countDocuments({})
             const users = await Event.countDocuments({})
